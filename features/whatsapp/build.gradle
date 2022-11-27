@@ -1,0 +1,15 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+}
+
+android androidDefaultConfiguration
+android {
+    namespace 'com.example.whatsapp'
+}
+
+dependencies {
+    implementation project(":base_design")
+    testImplementation  project(":base_testing")
+    androidTestImplementation  project(":base_testing")
+}

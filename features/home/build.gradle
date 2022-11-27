@@ -1,0 +1,25 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'com.google.dagger.hilt.android'
+}
+
+android androidDefaultConfiguration
+android {
+    namespace 'com.example.home'
+}
+
+dependencies {
+    // region Dagger/Hilt dependencies
+    implementation "com.google.dagger:hilt-android:2.44"
+    kapt "com.google.dagger:hilt-compiler:2.44"
+    // endregion
+
+    api project(":core")
+    implementation project(":base_design")
+    testImplementation  project(":base_testing")
+    androidTestImplementation  project(":base_testing")
+
+    debugImplementation "androidx.compose.ui:ui-tooling:$compose_ui_version"
+}

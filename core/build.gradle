@@ -1,0 +1,35 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'com.google.dagger.hilt.android'
+}
+
+android androidDefaultConfiguration
+android {
+    namespace 'com.example.core'
+}
+
+dependencies {
+    // region Network dependencies
+    api 'com.google.code.gson:gson:2.9.0'
+    api 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation "com.squareup.retrofit2:converter-gson:2.9.0"
+    // endregion
+
+    // region Kotlin coroutines dependencies
+    api 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
+    api 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4'
+    api "androidx.lifecycle:lifecycle-runtime-ktx:2.5.1"
+    api "androidx.lifecycle:lifecycle-livedata-ktx:2.5.1"
+    // endregion
+
+    // region Dagger/Hilt dependencies
+    api "com.google.dagger:hilt-android:2.44"
+    kapt "com.google.dagger:hilt-compiler:2.44"
+    // endregion
+
+    implementation project(":base_design")
+    testImplementation  project(":base_testing")
+    androidTestImplementation  project(":base_testing")
+}

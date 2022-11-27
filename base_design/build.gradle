@@ -1,0 +1,29 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+}
+
+android androidDefaultConfiguration
+android {
+    namespace 'com.example.base_design'
+}
+
+dependencies {
+    // region Core UI
+    api 'androidx.core:core-ktx:1.9.0'
+    api 'androidx.appcompat:appcompat:1.5.1'
+    api 'com.google.android.material:material:1.7.0'
+    // endregion
+
+    // region Compose
+    api 'androidx.lifecycle:lifecycle-runtime-ktx:2.5.1'
+    api 'androidx.activity:activity-compose:1.6.1'
+    api "androidx.compose.ui:ui:$compose_ui_version"
+    api "androidx.compose.ui:ui-tooling-preview:$compose_ui_version"
+    api 'androidx.compose.material:material:1.3.1'
+    api "androidx.compose.runtime:runtime-livedata:$compose_ui_version"
+
+    api "com.google.accompanist:accompanist-pager:0.27.1"
+    api "com.google.accompanist:accompanist-pager-indicators:0.27.1"
+    // endregion
+}

@@ -1,0 +1,23 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        google()
+        mavenCentral()
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+rootProject.name = "TheOneApp"
+include ':app'
+include ':features'
+include ':base_design'
+include ':base_testing'
+include ':features:whatsapp'
+include ':features:chatexample'
+include ':features:home'
+include ':core'
