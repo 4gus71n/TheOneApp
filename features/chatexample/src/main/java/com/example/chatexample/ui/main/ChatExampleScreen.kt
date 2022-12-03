@@ -4,6 +4,8 @@ package com.example.chatexample.ui.main
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
@@ -18,6 +20,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.constraintlayout.compose.Dimension
 import com.example.base_design.ui.TheOneAppTheme
 import com.example.core.model.ChatExampleMessage
 import com.example.chatexample.ui.main.viewmodel.ChatExampleViewModel
@@ -38,34 +42,55 @@ fun ChatExampleScreen(
         onRefresh = { chatexampleViewModel.fetchMessages() }
     )
 
-    Box(
+    ConstraintLayout(
         modifier = modifier
             .pullRefresh(pullRefreshState)
             .fillMaxSize()
+            .verticalScroll(rememberScrollState())
     ) {
-        when (val result = chatexampleViewModelState) {
-            is ChatExampleViewModel.State.SuccessfullyLoadedMessages -> {
-                ChatExampleScreenSuccessfullyLoadedMessages(
-                    chatexampleMessages = result.list,
-                    modifier = modifier,
-                )
+        val (content, pullRefresh) = createRefs()
+
+        Box(
+            modifier = Modifier.constrainAs(content) {
+                top.linkTo(parent.top)
+                start.linkTo(parent.start)
+                end.linkTo(parent.end)
+                bottom.linkTo(parent.bottom)
+                height = Dimension.fillToConstraints
             }
-            is ChatExampleViewModel.State.NoMessagesFetched -> {
-                ChatExampleScreenEmptyState(
-                    modifier = modifier
-                )
-            }
-            is ChatExampleViewModel.State.NoInternetConnectivity -> {
-                NoInternetConnectivityScreen(
-                    modifier = modifier
-                )
-            }
-            else -> {
-                // Agus - Do nothing???
-                Box(modifier = modifier.fillMaxSize())
+        ) {
+            when (val result = chatexampleViewModelState) {
+                is ChatExampleViewModel.State.SuccessfullyLoadedMessages -> {
+                    ChatExampleScreenSuccessfullyLoadedMessages(
+                        chatexampleMessages = result.list,
+                        modifier = modifier,
+                    )
+                }
+                is ChatExampleViewModel.State.NoMessagesFetched -> {
+                    ChatExampleScreenEmptyState(
+                        modifier = modifier
+                    )
+                }
+                is ChatExampleViewModel.State.NoInternetConnectivity -> {
+                    NoInternetConnectivityScreen(
+                        modifier = modifier
+                    )
+                }
+                else -> {
+                    // Agus - Do nothing???
+                    Box(modifier = modifier.fillMaxSize())
+                }
             }
         }
-        PullRefreshIndicator(chatexampleViewModelIsLoadingState == true, pullRefreshState, Modifier.align(Alignment.TopCenter))
+        PullRefreshIndicator(
+            refreshing = chatexampleViewModelIsLoadingState == true,
+            state = pullRefreshState,
+            modifier = Modifier.constrainAs(pullRefresh) {
+                top.linkTo(parent.top)
+                start.linkTo(parent.start)
+                end.linkTo(parent.end)
+            }
+        )
     }
 }
 
