@@ -20,6 +20,7 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -58,14 +59,23 @@ class ChatExampleActivity : ComponentActivity() {
         }
 
         setContent {
+
+            val messageExampleScreenIsLoading by viewModel.isLoading.observeAsState(
+                initial = true
+            )
+            val messageExampleScreenUiState by viewModel.state.observeAsState(
+                initial = MessageExampleViewModel.State.NoMessagesFetched
+            )
+            val dashboardExampleScreenImageUrl by dashboardViewModel.profileImageUri.observeAsState(
+                initial = Uri.parse("")
+            )
+
             ChatExampleScreen(
                 onPullToRefresh = { viewModel.fetchMessages() },
                 onLaunchMediaPicker = { onLaunchMediaPicker() },
-                messageExampleScreenIsLoading = viewModel.isLoading.observeAsState(initial = true),
-                messageExampleScreenUiState = viewModel.state.observeAsState(initial = MessageExampleViewModel.State.NoMessagesFetched),
-                dashboardExampleScreenImageUrl = dashboardViewModel.profileImageUri.observeAsState(
-                    initial = Uri.parse("")
-                )
+                messageExampleScreenIsLoading = messageExampleScreenIsLoading,
+                messageExampleScreenUiState = messageExampleScreenUiState,
+                dashboardExampleScreenImageUrl = dashboardExampleScreenImageUrl
             )
         }
 

@@ -30,14 +30,14 @@ import java.util.*
 
 @Composable
 fun MessageExampleScreen(
-    uiState: State<MessageExampleViewModel.State?>,
-    isLoadingState: State<Boolean?>,
+    uiState: MessageExampleViewModel.State,
+    isLoadingState: Boolean,
     onPullToRefresh: (() -> Unit) = {},
     modifier: Modifier = Modifier
 ) {
 
     val pullRefreshState = rememberPullRefreshState(
-        refreshing = isLoadingState.value == true,
+        refreshing = isLoadingState,
         onRefresh = onPullToRefresh
     )
 
@@ -58,10 +58,10 @@ fun MessageExampleScreen(
                 height = Dimension.fillToConstraints
             }
         ) {
-            when (val result = uiState.value) {
+            when (uiState) {
                 is MessageExampleViewModel.State.SuccessfullyLoadedMessages -> {
                     ChatExampleScreenSuccessfullyLoadedMessages(
-                        chatexampleMessages = result.list,
+                        chatexampleMessages = uiState.list,
                         modifier = modifier,
                     )
                 }
@@ -82,7 +82,7 @@ fun MessageExampleScreen(
             }
         }
         PullRefreshIndicator(
-            refreshing = isLoadingState.value == true,
+            refreshing = isLoadingState,
             state = pullRefreshState,
             modifier = Modifier.constrainAs(pullRefresh) {
                 top.linkTo(parent.top)

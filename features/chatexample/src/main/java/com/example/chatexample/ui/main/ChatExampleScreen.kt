@@ -27,9 +27,9 @@ import com.google.accompanist.pager.rememberPagerState
 fun ChatExampleScreen(
     onLaunchMediaPicker: (() -> Unit),
     onPullToRefresh: (() -> Unit),
-    dashboardExampleScreenImageUrl: State<Uri>,
-    messageExampleScreenIsLoading: State<Boolean>,
-    messageExampleScreenUiState: State<MessageExampleViewModel.State>
+    dashboardExampleScreenImageUrl: Uri,
+    messageExampleScreenIsLoading: Boolean,
+    messageExampleScreenUiState: MessageExampleViewModel.State
 ) {
     TheOneAppTheme {
         // A surface container using the 'background' color from the theme

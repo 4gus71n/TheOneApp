@@ -43,7 +43,7 @@ import java.util.*
 
 @Composable
 fun DashboardExampleScreen(
-    imageUrl: State<Uri?>,
+    imageUrl: Uri,
     onChangePicture: () -> Unit = {},
     modifier: Modifier = Modifier
 ) {
@@ -56,7 +56,7 @@ fun DashboardExampleScreen(
                 .wrapContentHeight()
         ) {
             UserImageThumbnail(
-                imgUrl = imageUrl.value,
+                imgUrl = imageUrl,
                 onChangePicture = onChangePicture
             )
             Column(
