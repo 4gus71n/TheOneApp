@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ChatExampleViewModel @Inject constructor(
+class MessageExampleViewModel @Inject constructor(
     private val fetchMessagesUseCase: FetchMessagesUseCase
 ) : ViewModel() {
     sealed class State {
