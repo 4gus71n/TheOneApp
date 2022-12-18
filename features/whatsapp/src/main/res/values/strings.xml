@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="error_title">Oops! Something went wrong!</string>
+    <string name="error_subtitle">Please try again later. Reach support if you have further issues.</string>
+    <string name="no_recipients_title">No contacts yet</string>
+    <string name="add_new_contact">Add new contact</string>
+    <string name="new_contact_cta">New Contact</string>
+    <string name="import_contacts_cta">Import Contacts</string>
+</resources>

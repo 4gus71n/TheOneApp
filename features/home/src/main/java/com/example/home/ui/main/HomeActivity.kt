@@ -23,5 +23,8 @@ class HomeActivity : AppCompatActivity() {
         binding.activityHomeChatExampleBtn.setOnClickListener {
             startActivity(appNavigationProvider.getChatExampleIntent(this))
         }
+        binding.activityHomeWhatsAppBtn.setOnClickListener {
+            startActivity(appNavigationProvider.getLetterComposeIntent(this))
+        }
     }
 }

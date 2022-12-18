@@ -9,4 +9,5 @@ import android.content.Intent
  */
 interface AppNavigationProvider {
     fun getChatExampleIntent(context: Context): Intent
+    fun getLetterComposeIntent(context: Context): Intent
 }
