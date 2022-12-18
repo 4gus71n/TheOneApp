@@ -37,7 +37,8 @@ fun RecipientTabPager(
     padding: PaddingValues = PaddingValues(0.dp),
     recentRecipientState: RecipientContactState = RecipientContactState.NoRecentRecipients,
     addressBookRecipientState: RecipientContactState = RecipientContactState.NoRecentRecipients,
-    onAddNewContactClicked: (() -> Unit) = {}
+    onAddNewContactClicked: (() -> Unit) = {},
+    onContactSelected: ((LetterRecipient) -> Unit) = {}
 ) {
     Column(modifier = Modifier.padding(padding)) {
 
@@ -82,13 +83,15 @@ fun RecipientTabPager(
                 0 -> {
                     RecipientContactPage(
                         state = recentRecipientState,
-                        onAddNewContactClicked = onAddNewContactClicked
+                        onAddNewContactClicked = onAddNewContactClicked,
+                        onContactClicked = onContactSelected
                     )
                 }
                 1 -> {
                     RecipientContactPage(
                         state = addressBookRecipientState,
-                        onAddNewContactClicked = onAddNewContactClicked
+                        onAddNewContactClicked = onAddNewContactClicked,
+                        onContactClicked = onContactSelected
                     )
                 }
             }

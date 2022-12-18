@@ -39,13 +39,15 @@ class LetterComposeActivity : ComponentActivity() {
                 addressBookRecipientState = addressBookState,
                 recipientSearchState = searchState,
                 onAddNewContactClicked = {
-                    // Start an Activity to somewhere else.
+                    // TODO We should navigate to some other Activity and then add the contact.
+                    viewModel.addNewContact()
                 },
                 onSearchQueryChanged = {
                     viewModel.performSearch(it)
                 },
                 onContactSelected = {
-                    // Navigate to the next ste[
+                    // Navigate to the next step
+                    viewModel.addContactAsRecent(it)
                 }
             )
         }

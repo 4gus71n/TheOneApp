@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.whatsapp.RecipientContactState
 import com.example.whatsapp.models.LetterRecipient
 import dagger.hilt.android.lifecycle.HiltViewModel
+import java.util.Date
 import javax.inject.Inject
 
 @HiltViewModel
@@ -14,19 +15,24 @@ class LetterComposeViewModel @Inject constructor() : ViewModel() {
     val addressBookState = MutableLiveData<RecipientContactState>()
     val searchState = MutableLiveData<RecipientContactState>()
 
-    fun performSearch(it: String) {
+    // TODO Remove
+    private val _addressBookList = generateRandomList("[AB]")
+    private val _searchResults = generateRandomList("[SR]")
+    private val _recentList = mutableListOf<LetterRecipient>()
+
+    fun performSearch(query: String) {
         searchState.value = RecipientContactState.RecipientsSuccessfullyFetched(
-            list = generateRandomList()
+            list = _searchResults
         )
     }
 
-    private fun generateRandomList(): List<LetterRecipient> {
+    private fun generateRandomList(prefix: String): MutableList<LetterRecipient> {
         return mutableListOf<LetterRecipient>().apply {
             repeat(50) {
                 add(
                     LetterRecipient(
-                        fullName = "Long long long long name",
-                        fullAddress = "Long long long address",
+                        fullName = "$prefix Long long long long name",
+                        fullAddress = "$prefix Long long long address",
                         initials = "QA"
                     )
                 )
@@ -36,10 +42,30 @@ class LetterComposeViewModel @Inject constructor() : ViewModel() {
 
     fun fetchContacts() {
         addressBookState.value = RecipientContactState.RecipientsSuccessfullyFetched(
-            list = generateRandomList()
+            list = _addressBookList
         )
         recentState.value = RecipientContactState.RecipientsSuccessfullyFetched(
-            list = generateRandomList()
+            list = _recentList
+        )
+    }
+
+    fun addNewContact() {
+        _addressBookList.add(
+            LetterRecipient(
+                fullName = "${Date()} NEW Long long long long name",
+                fullAddress = "${Date()} NEW Long long long address",
+                initials = "QA"
+            )
+        )
+        addressBookState.value = RecipientContactState.RecipientsSuccessfullyFetched(
+            list = _addressBookList
+        )
+    }
+
+    fun addContactAsRecent(it: LetterRecipient) {
+        _recentList.add(it)
+        recentState.value = RecipientContactState.RecipientsSuccessfullyFetched(
+            list = _recentList
         )
     }
 }

@@ -74,7 +74,8 @@ fun LetterComposeScreen(
                             padding = it,
                             recentRecipientState = recentRecipientState,
                             addressBookRecipientState = addressBookRecipientState,
-                            onAddNewContactClicked = onAddNewContactClicked
+                            onAddNewContactClicked = onAddNewContactClicked,
+                            onContactSelected = onContactSelected
                         )
                     }
                 }
