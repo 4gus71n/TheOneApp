@@ -7,21 +7,24 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Share
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.unit.dp
 import com.example.base_design.ui.TheOneAppTheme
 import com.example.chatexample.ui.main.viewmodel.MessageExampleViewModel
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
+import kotlinx.coroutines.launch
 
 @Composable
 fun ChatExampleScreen(
@@ -45,10 +48,12 @@ fun ChatExampleScreen(
                 Column(
                     Modifier
                         .fillMaxSize()
-                        .padding(it)) {
+                        .padding(it)
+                ) {
                     val pagerState = rememberPagerState()
+                    val scope = rememberCoroutineScope()
 
-                    ScrollableTabRow(
+                    TabRow(
                         selectedTabIndex = pagerState.currentPage,
                         indicator = { tabPositions ->
                             TabRowDefaults.Indicator(
@@ -60,7 +65,11 @@ fun ChatExampleScreen(
                     ) {
                         Tab(
                             selected = pagerState.currentPage == 0,
-                            onClick = {  },
+                            onClick = {
+                                scope.launch {
+                                    pagerState.scrollToPage(0, 0f)
+                                }
+                            },
                             text = {
                                 Text(
                                     text = "Messages"
@@ -69,7 +78,11 @@ fun ChatExampleScreen(
                         )
                         Tab(
                             selected = pagerState.currentPage == 1,
-                            onClick = {  },
+                            onClick = {
+                                scope.launch {
+                                    pagerState.scrollToPage(1, 0f)
+                                }
+                            },
                             text = {
                                 Text(
                                     text = "Dashboard"
@@ -77,11 +90,12 @@ fun ChatExampleScreen(
                             }
                         )
                     }
-
                     HorizontalPager(
                         count = 2,
                         state = pagerState,
-                        modifier = Modifier.fillMaxWidth(),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clipToBounds(),
                     ) { page ->
                         when (page) {
                             0 -> {
@@ -113,7 +127,7 @@ fun TopAppBarSample(){
         TopAppBar(
             elevation = 4.dp,
             title = {
-                Text("ChatExampleActivity")
+                Text("Chat")
             },
             backgroundColor =  MaterialTheme.colors.primarySurface,
             navigationIcon = {

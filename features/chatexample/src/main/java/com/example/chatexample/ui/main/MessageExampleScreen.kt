@@ -45,7 +45,6 @@ fun MessageExampleScreen(
         modifier = modifier
             .pullRefresh(pullRefreshState)
             .fillMaxSize()
-            .verticalScroll(rememberScrollState())
     ) {
         val (content, pullRefresh) = createRefs()
 
