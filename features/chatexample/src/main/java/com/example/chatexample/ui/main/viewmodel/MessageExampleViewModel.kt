@@ -22,13 +22,7 @@ class MessageExampleViewModel @Inject constructor(
         object NoInternetConnectivity : State()
     }
 
-    sealed class MessageState {
-        object UnknownError : MessageState()
-        object NoInternetConnectivity : MessageState()
-    }
-
     val state = MutableLiveData<State>()
-    val messages = MutableLiveData<MessageState>()
     val isLoading = MutableLiveData<Boolean>()
 
     fun fetchMessages() {

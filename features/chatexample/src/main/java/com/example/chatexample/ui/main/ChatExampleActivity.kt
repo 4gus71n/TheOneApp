@@ -66,8 +66,8 @@ class ChatExampleActivity : ComponentActivity() {
             val messageExampleScreenUiState by viewModel.state.observeAsState(
                 initial = MessageExampleViewModel.State.NoMessagesFetched
             )
-            val dashboardExampleScreenImageUrl by dashboardViewModel.profileImageUri.observeAsState(
-                initial = Uri.parse("")
+            val dashboardExampleScreenUiState by dashboardViewModel.state.observeAsState(
+                initial = DashboardExampleViewModel.State.Loading
             )
 
             ChatExampleScreen(
@@ -75,11 +75,12 @@ class ChatExampleActivity : ComponentActivity() {
                 onLaunchMediaPicker = { onLaunchMediaPicker() },
                 messageExampleScreenIsLoading = messageExampleScreenIsLoading,
                 messageExampleScreenUiState = messageExampleScreenUiState,
-                dashboardExampleScreenImageUrl = dashboardExampleScreenImageUrl
+                dashboardExampleScreenUiState = dashboardExampleScreenUiState
             )
         }
 
         viewModel.fetchMessages()
+        dashboardViewModel.fetchUserDetails()
     }
 
     companion object {

@@ -20,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.unit.dp
 import com.example.base_design.ui.TheOneAppTheme
+import com.example.chatexample.ui.main.viewmodel.DashboardExampleViewModel
 import com.example.chatexample.ui.main.viewmodel.MessageExampleViewModel
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
@@ -30,7 +31,7 @@ import kotlinx.coroutines.launch
 fun ChatExampleScreen(
     onLaunchMediaPicker: (() -> Unit),
     onPullToRefresh: (() -> Unit),
-    dashboardExampleScreenImageUrl: Uri,
+    dashboardExampleScreenUiState: DashboardExampleViewModel.State,
     messageExampleScreenIsLoading: Boolean,
     messageExampleScreenUiState: MessageExampleViewModel.State
 ) {
@@ -108,7 +109,7 @@ fun ChatExampleScreen(
                             }
                             1 -> {
                                 DashboardExampleScreen(
-                                    imageUrl = dashboardExampleScreenImageUrl,
+                                    state = dashboardExampleScreenUiState,
                                     onChangePicture = onLaunchMediaPicker,
                                     modifier = Modifier.fillMaxWidth()
                                 )

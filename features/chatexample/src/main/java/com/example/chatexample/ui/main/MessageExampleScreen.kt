@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import com.example.base_design.ui.TheOneAppTheme
+import com.example.chatexample.ui.designsystem.ErrorLayout
 import com.example.core.model.ChatExampleMessage
 import com.example.chatexample.ui.main.viewmodel.MessageExampleViewModel
 import java.text.SimpleDateFormat
@@ -65,12 +66,14 @@ fun MessageExampleScreen(
                     )
                 }
                 is MessageExampleViewModel.State.NoMessagesFetched -> {
-                    ChatExampleScreenEmptyState(
+                    ErrorLayout(
+                        errorMessage = "No messages so far.",
                         modifier = modifier
                     )
                 }
                 is MessageExampleViewModel.State.NoInternetConnectivity -> {
-                    NoInternetConnectivityScreen(
+                    ErrorLayout(
+                        errorMessage = "No internet connectivity. Try again later.",
                         modifier = modifier
                     )
                 }
@@ -88,32 +91,6 @@ fun MessageExampleScreen(
                 start.linkTo(parent.start)
                 end.linkTo(parent.end)
             }
-        )
-    }
-}
-
-@Composable
-fun NoInternetConnectivityScreen(modifier: Modifier = Modifier) {
-    Box(
-        modifier = modifier.fillMaxSize()
-    ) {
-        Text(
-            text = "No internet. Try again later.",
-            style = MaterialTheme.typography.h6,
-            modifier = modifier.align(Alignment.Center)
-        )
-    }
-}
-
-@Composable
-fun ChatExampleScreenEmptyState(modifier: Modifier = Modifier) {
-    Box(
-        modifier = modifier.fillMaxSize()
-    ) {
-        Text(
-            text = "No messages so far.",
-            style = MaterialTheme.typography.h6,
-            modifier = modifier.align(Alignment.Center)
         )
     }
 }
@@ -209,21 +186,5 @@ fun ChatExampleScreenEmptyState_Preview() {
                 )
             )
         )
-    }
-}
-
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun NoInternetConnectivityScreen_Preview() {
-    TheOneAppTheme {
-        NoInternetConnectivityScreen()
-    }
-}
-
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun ChatExampleScreenSuccessfullyLoadedMessages_Preview() {
-    TheOneAppTheme {
-        ChatExampleScreenEmptyState()
     }
 }
